@@ -37,7 +37,7 @@ mod tests {
     use super::*;
 
     #[test]
-    /// This test case demo how we can from a defaul config then patch with
+    /// This test case demo how we can from a default config then patch with
     /// toml, then with yaml and then with envvar
     ///
     /// You can easy to swap any config layers with different crate and tools
