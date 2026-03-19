@@ -48,13 +48,26 @@ mod tests {
         assert_eq!(config.verb, "");
         assert_eq!(config.nested.inner, "Things");
 
-        let config_patch_from_yaml =  serde_saphyr::from_str::<ConfigPatch>(r#"name: name
-verb: do
+        let config_patch_from_yaml =  serde_saphyr::from_str::<ConfigPatch>(r#"name: People
+verb: want
 nested: ~
 "#).unwrap();
         config.apply(config_patch_from_yaml);
 
-        assert_eq!(config.name, "name");
+        assert_eq!(config.name, "People");
+        assert_eq!(config.verb, "want");
+        assert_eq!(config.nested.inner, "Things");
+
+        let config_patch_from_json = serde_json::from_str::<ConfigPatch>(r#"
+            {
+                "verb": "do",
+                "nested": {}
+            }
+            "#).unwrap();
+        
+        config.apply(config_patch_from_json);
+
+        assert_eq!(config.name, "People");
         assert_eq!(config.verb, "do");
         assert_eq!(config.nested.inner, "Things");
         
@@ -65,7 +78,7 @@ nested: ~
         
         config.apply(config_patch_from_toml);
 
-        assert_eq!(config.name, "name");
+        assert_eq!(config.name, "People");
         assert_eq!(config.verb, "do");
         assert_eq!(config.nested.inner, "Something");
 
