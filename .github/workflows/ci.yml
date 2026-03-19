@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  check:
+    name: CI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: crate-ci/typos@v1.44.0
+
+      - uses: DeterminateSystems/nix-installer-action@v14
+
+      - name: Run cargo test via nix develop
+        run: nix develop -c cargo test
