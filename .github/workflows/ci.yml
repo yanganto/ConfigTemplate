@@ -7,25 +7,17 @@ on:
     branches: ["**"]
 
 jobs:
-  test:
-    name: Run tests with Nix
+  check:
+    name: CI
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v4
+
+      - uses: crate-ci/typos@v1.44.0
 
       - uses: DeterminateSystems/nix-installer-action@v14
 
       - name: Run cargo test via nix develop
         run: nix develop -c cargo test
-
-  typo-check:
-    name: Check for typos
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: crate-ci/typos-action@v1
