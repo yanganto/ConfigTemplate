@@ -11,7 +11,7 @@ use struct_patch::Patch;
 pub struct Config {
     pub name: String,
     pub verb: String,
-    #[patch(nesting)]
+    // #[patch(nesting)]  // Note: you can uncomment this line make the nested field required
     pub nested: NestedConfig,
 }
 
@@ -37,7 +37,7 @@ mod tests {
     use super::*;
 
     #[test]
-    /// This test case demo how we can from a defaul config then patch with 
+    /// This test case demo how we can from a default config then patch with
     /// toml, then with yaml and then with envvar
     ///
     /// You can easy to swap any config layers with different crate and tools
@@ -60,22 +60,21 @@ nested: ~
 
         let config_patch_from_json = serde_json::from_str::<ConfigPatch>(r#"
             {
-                "verb": "do",
-                "nested": {}
+                "verb": "do"
             }
             "#).unwrap();
-        
+
         config.apply(config_patch_from_json);
 
         assert_eq!(config.name, "People");
         assert_eq!(config.verb, "do");
         assert_eq!(config.nested.inner, "Things");
-        
+
         let config_patch_from_toml = toml::from_str::<ConfigPatch>(r#"
             [nested]
             inner = "Something"
             "#).unwrap();
-        
+
         config.apply(config_patch_from_toml);
 
         assert_eq!(config.name, "People");
