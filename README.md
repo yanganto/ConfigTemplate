@@ -56,10 +56,10 @@ Each layer only needs to specify values that change. Missing values are inherite
 ### Quick Example
 
 ```rust
-let config = Config::default()
-    .apply(serde_saphyr::from_str(yaml_content)?)                               // Apply YAML config
-    .apply(serde_json::from_str(json_content)?)                                 // Apply JSON config (overrides YAML)
-    .apply(envious::Config::default().with_prefix("MY_").build_from_env()?);    // Apply env vars (highest priority)
+let mut config = Config::default();
+config.apply(serde_saphyr::from_str(yaml_content)?);                              // Apply YAML config
+config.apply(serde_json::from_str(json_content)?);                                // Apply JSON config (overrides YAML)
+config.apply(envious::Config::default().with_prefix("MY_").build_from_env()?);    // Apply env vars (highest priority)
 ```
 
 This flow is clear and composable
