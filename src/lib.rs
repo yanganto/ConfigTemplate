@@ -41,6 +41,10 @@ mod tests {
     /// toml, then with yaml and then with envvar
     ///
     /// You can easy to swap any config layers with different crate and tools
+    ///
+    /// If you have no ideal to use struct-patch with command line options,
+    /// we have example in the repo
+    /// https://github.com/yanganto/struct-patch/blob/main/lib/examples/clap.rs
     fn config_with_patch() {
         let mut config = Config::default();
 

@@ -12,6 +12,7 @@ When building Rust applications, configuration typically comes from multiple sou
 - Default values in code
 - YAML/JSON/TOML config files
 - Environment variables
+- [Command line parameters](https://github.com/yanganto/struct-patch/blob/main/lib/examples/clap.rs)
 
 Traditional approaches often mix deserialization with application logic, making code verbose and hard to maintain. Adding new configuration sources becomes increasingly difficult as the application grows.
 This approach also makes it easy to work with multiple config files (e.g., `some.yaml`, `some.custom.yaml`).
